@@ -3,12 +3,13 @@ import web
 con=pymongo.Connection("localhost",27017)
 bank=con.bank
 accounts=bank.accounts
-render=web.template.render("/home/rw/workplace/aapay/data/FadeZhiFuBao/template")
+render=web.template.render("template")
 class ShowPayPage:
     def GET(self):
         webinput=web.input()
         money=webinput[u'money']
         account=webinput[u'account']
+        print money
         return render.simuAli(money,account) 
 
 
