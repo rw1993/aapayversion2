@@ -16,7 +16,7 @@ class redirect_uri:
         code=webinput[u'code']
         u=user(code=code)
         if u.account=="":
-            web.seeother("set_accout")
+            web.seeother("set_accout_page")
         else:
             try:
                 cookies=web.cookies()
