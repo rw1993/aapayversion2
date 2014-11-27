@@ -1,0 +1,18 @@
+from weibo import APIClient
+import pymongo
+
+
+
+class user:
+    def InitWithCode(self,code):
+    appkey='3541987275'
+    appsecret='9e2cca6d2f735a7ebee4999ac6608231'
+    redirecturl='http://0.0.0.0:8080/redirecturl'
+    client=weibo.APIClient(app_key=appkey,app_secret=appsecret,redirect_uri=redirecturl)
+    result=client.request_access_token(str(code))
+    self.access_token=result[u'access_token']
+    self.expires_in=result[u'exipires_in']
+    self.
+
+    def __init__(self,uid=None,code=None):
+        
