@@ -13,6 +13,7 @@ class user:
         u['account']=self.account
         u['hostlist']=self.hostlist
         u['inlist']=self.inlist
+        u['informations']=self.informations
         users.insert(u)
 
     def getusers(self):
@@ -23,9 +24,13 @@ class user:
     def InitWithUid(self,uid):
         users=self.getusers()
         u=users.find_one({u'uid':uid})
+        self.uid=uid
         if u is None:
+            cookies=web.cookies()
+            self.access_token=cookies[u'access_token']
             self.hostlist=[]
             self.inlist=[]
+            self.informations=[]
             client=self.getclient(self.access_token,self.expires_in)
             userinfor=client.users.show.get(uid=int(self.uid))
             self.name=userinfor[u'name']
@@ -35,6 +40,7 @@ class user:
             self.hostlist=u['hostlist']
             self.inlist=u['inlist']
             self.name=u['name']
+            self.informations=u[u'informations']
 
     def getclient(self,access_token,expires_in):
         appkey='3541987275'
@@ -67,4 +73,12 @@ class user:
             self.InitWithCode(code)
         else:
             self.InitWithUid(uid)
-        
+    
+
+
+
+    def get_user_info_weibo(self):
+        client=self.getclient(self.access_token,self.expires_in)
+        userinfor=client.users.show.get(uid=int(self.uid))
+        return userinfor
+

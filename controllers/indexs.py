@@ -15,4 +15,19 @@ class redirect_uri:
         webinput=web.input()
         code=webinput[u'code']
         u=user(code=code)
-        return "hello"
+        if u.account=="":
+            web.seeother("set_accout")
+        else:
+            try:
+                cookies=web.cookies()
+                weibo_id=cookies[u'from_weibo_id']
+                print weibo_id
+                web.seeother("activity?weibo_id="+weibo_id)
+            except:
+                userinfor=user.get_user_info_weibo()
+                informations=user.informations
+                return render.userindex(userinfor,informations)
+
+class show_set_accout_page:
+    def GET(self):
+        return render.set_account_page()
