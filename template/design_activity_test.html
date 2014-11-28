@@ -8,13 +8,21 @@ $def with(friends)
 		  <script src="http://apps.bdimg.com/libs/jquery/2.0.0/jquery.min.js"></script>
 		  <script src="http://apps.bdimg.com/libs/bootstrap/3.0.3/css/bootstrap-theme.min.css"></script>
 		  <script src="http://apps.bdimg.com/libs/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+          <script src="http://apps.bdimg.com/libs/angular.js/1.2.15/angular.min.js"></script>
+			<script>
+            function validateCtrl($scope) {
+                $scope.user = 'John Doe';
+                $scope.email = 'john.doe@gmail.com';
+            }
+            </script>
 		  <script>
 var pastname="";
 		  var count=0;</script>
 		  </head>
 
 		  <body>
-          <!--页头-->
+          <!--head-->
+          
           <div class="container">
             <div class="row clearfix">
               <div class="col-md-12 column">
@@ -33,12 +41,24 @@ var pastname="";
             <div class="row clearfix">
               <div class="col-md-12 column">
                 <div class="row clearfix">
-                  <form role="form" action="/sendBeginWeibo" method="POST">
+                <form role="form" action="/sendBeginWeibo" method="POST" ng-app="" ng-controller="validateCtrl" name="myForm" novalidate>
                     <div class="col-md-5 column">
-                      <div class="form-group">
+                    
+                      <div class="form-group" ng-class="{ 'has-error' : myForm.ActivityName.$invalid && !myForm.ActivityName.$pristine }">
                         <label for="ActivityName">活动名称</label>
-                        <input type="" class="form-control" name="ActivityName" />
+                        <input type="text" class="form-control" name="ActivityName" ng-model="ActivityName" required>
+                        <span style="color:red" ng-show="myForm.ActivityName.$invalid && !myForm.ActivityName.$pristine">
+                        <span ng-show="myForm.ActivityName.$error.required">Username is required.</span>
+                        </span>
                       </div>
+                      
+                      <div class="form-group" ng-class="{ 'has-error' : myForm.name.$invalid && !myForm.name.$pristine }">
+                        <label>Name</label>
+                        <input type="text" name="name" class="form-control" ng-model="user.name" required>
+                        <p ng-show="myForm.ActivityName.$invalid && !myForm.ActivityName.$pristine" class="help-block">You name is required.</p>
+                    </div>
+                      
+                      
                       <div class="form-group">
                         <label for="ActivityMoney">活动总金额</label>
                         <br /><small>本系统默认AA平摊方案，如需调整，请在发起活动后在重定义页面进行调整</small>
@@ -58,6 +78,11 @@ var pastname="";
                        </div>
                       <button type="submit" class="btn btn-default">发起活动</button>
                     </div>
+                    
+                    
+                    
+                    
+                    
                     <div class="col-md-1 column">
                     <br />
                     </div>
@@ -78,7 +103,7 @@ var pastname="";
                 </div>
               </div>
             </div>
-            <!--页脚-->
+            <!--footer-->
             <div style=" position: relative;bottom:-100px" >
               <hr style="height:2px">
               <div style="text-align:right"> <a href="/us">联系我们</a> </div>
