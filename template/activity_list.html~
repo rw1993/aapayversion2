@@ -19,7 +19,7 @@ $elif type==3:
 
 <body>
 <div id="header" class="container">
-  <div class="col-md-12 column">
+<div class="col-md-12 column">
   <h3 class="text-left">Sina AApay </h3>
   <ul class="nav nav-tabs">
     <li> <a href="user_index">首页</a> </li>
@@ -28,7 +28,7 @@ $elif type==3:
         <li  class="active"> <a href="#">当前进行的活动</a> </li>
         <li> <a href="past_activity">过去的活动</a> </li>
         <li> <a href="abort_activity">中止的活动</a> </li>
-    $elif type==2:
+    $elif type==2：
         <li> <a href="current_activity">当前进行的活动</a> </li>
         <li class="active"> <a href="#">过去的活动</a> </li>
         <li> <a href="abort_activity">中止的活动</a> </li>
@@ -36,8 +36,8 @@ $elif type==3:
         <li> <a href="current_activity">当前进行的活动</a> </li>
         <li> <a href="past_activity">过去的活动</a> </li>
         <li class="active"> <a href="#">中止的活动</a> </li>
-  </ul>
-  </div>
+    </ul>
+</div>
 <div class="container">
   <div class="row clearfix">
     <div class="col-md-12 column">
@@ -49,7 +49,7 @@ $elif type==3:
                      <div class="panel panel-default">
                                      <div class="panel-heading"> <a class="panel-title"
                             data-toggle="collapse" data-parent="#panel-153902"
-                    href="#$a.acitivity_id">参加的活动：$a.activity_name</a> </div>
+                    href="#$a.acitivity_id">参加的活动：$ac[u'name']</a> </div>
                      <div id="$a.activity_id" class="panel-collapse in">
                      <div class="panel-body">
                      <ul>
@@ -57,13 +57,18 @@ $elif type==3:
                       <li>活动时间：$a.activity_time</li>
                       <li>活动总金额：$a.activity_money</li>
                       <li>
-                      <a href="activity?activity_id=$a.activity_id">details</a>
+                        <form action="gotoActivity" method="POST">
+                          <button type="submit" class="btn btn-default"
+                              name="activity_id" value="$a.activity_id">跳转到活动页面</button>
+                        </form>
                       </li>
         </ul>
        </div>
        </div>
          </div>
          </div>
+          </li>
+        </ul>
       </div>
       <div class="col-md-6 column"> 
             $for a in activitysORG[::-1]:
@@ -71,15 +76,18 @@ $elif type==3:
                   <div class="panel panel-default">
                   <div class="panel-heading"> <a class="panel-title"
                         data-toggle="collapse" data-parent="#panel-72507"
-                href="#$a.activity_id">组织的活动：$a.activity_name</a> </div>
-                  <div id="$a.activity_id" class="panel-collapse in">
+                href="#$a.activity_id">组织的活动：$ac[u'name']</a> </div>
+                  <div id="$a.acitivity_id" class="panel-collapse in">
                   <div class="panel-body">
                       <ul>
-                      <li>活动地点: $a.activity_position</li>
+                      <li>活动地点: $a.acitivity_position</li>
                       <li>活动时间：$a.activity_time</li>
                       <li>活动总金额：$a.activity_money</li>
                       <li>
-                      <a href="activity?activity_id=$a.activity_id">details</a>
+                        <form action="gotoActivity" method="POST">
+                          <button type="submit" class="btn btn-default"
+                              name="activity_id" value="$a.activity_id">跳转到活动页面</button>
+                        </form>
                       </li>
          </ul>
         </div>
