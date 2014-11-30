@@ -51,11 +51,6 @@ $def with(activitysIN,activitysORG)
                       <li>活动地点: $ac[u'place']</li>
                       <li>活动时间：$ac[u'date']</li>
                       <li>活动总金额：$ac[u'money']</li>
-                      $if ac[u'ifbegin']==False:
-                            <li>state:wait to begin</li>
-                      $else:
-                            <li>state:began</li>
- 
                       <li>
                         <form action="gotoActivity" method="POST">
                           <button type="submit" class="btn btn-default"
@@ -83,11 +78,7 @@ $def with(activitysIN,activitysORG)
                       <li>活动地点: $ac[u'place']</li>
                       <li>活动时间：$ac[u'date']</li>
                       <li>活动总金额：$ac[u'money']</li>
-                      $if ac[u'ifbegin']==False:
-                            <li>state:wait to begin</li>
-                      $else:
-                            <li>state:began</li>
-                                           <li>
+                      <li>
                         <form action="gotoActivity" method="POST">
                           <button type="submit" class="btn btn-default"
                               name="activity_id" value="$ac[u'id']">跳转到活动页面</button>

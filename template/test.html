@@ -16,7 +16,7 @@
 </p>
 
 <p>Email:<br>
-<input type="text" name="email" ng-model="email" ng-pattern="/[0-]/" required>
+<input type="text" name="email" ng-model="email" ng-pattern="/^([0-9]{4}-(((0[13578]|(10|12))-(0[1-9]|[1-2][0-9]|3[0-1]))|(02-(0[1-9]|[1-2][0-9]))|((0[469]|11)-(0[1-9]|[1-2][0-9]|30))))(\s)((([1-9]{1})|([0-1][0-9])|([1-2][0-3])):([0-5][0-9]))$/" required>
 <span style="color:red" ng-show="myForm.email.$dirty && myForm.email.$invalid">
 <span ng-show="myForm.email.$error.required">Email is required.</span>
 <span ng-show="myForm.email.$error.pattern">Invalid email address.</span>
