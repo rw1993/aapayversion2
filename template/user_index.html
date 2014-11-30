@@ -1,4 +1,4 @@
-$def with(userinfor,informations)
+$def with(userinfor,informations,useraccount)
 <!DOCTYPE html>
 
 <head>
@@ -16,12 +16,21 @@ $def with(userinfor,informations)
 <div class="col-md-12 column">
   <h3 class="text-left">Sina AApay </h3>
   <ul class="nav nav-tabs">
+<<<<<<< HEAD
     <li class="active"> <a href="/userindex">首页</a> </li>
     <li> <a href="/design_activity">发起活动</a> </li>
     <li> <a href="/currentActivity">当前进行的活动</a> </li>
     <li> <a href="/pastActivity">过去的活动</a> </li>
+=======
+    <li class="active"> <a href="user_index">首页</a> </li>
+    <li> <a href="design_activity">发起活动</a> </li>
+    <li> <a href="current_activity">当前进行的活动</a> </li>
+    <li> <a href="past_activity">过去的活动</a> </li>
+    <li> <a href="abort_activity">中止的活动</a> </li>
+>>>>>>> e8e5790f881c4459b497f8665b25bd145ef62dde
   </ul>
 </div>
+<!--main-->
 <div id="banner">
   <div class="container">
     <div class="row clearfix">
@@ -34,24 +43,25 @@ $def with(userinfor,informations)
         <small> <a href="http://weibo.com" target="_blank"> 关注:$userinfor.friends_count</a><br />
         <a href="http://weibo.com" target="_blank"> 粉丝：$userinfor.followers_count</a><br />
         <a href="http://weibo.com" target="_blank"> 微博：$userinfor.statuses_count</a><br />
+        <a href="set_account_page" target="_blank" title="点击更改支付宝账户"> 支付宝账户：$useraccount</a><br />
         </small> </div>
       <div class="col-md-3 column"> <br />
         <br />
         <ul >
-          <li><a href="/currentActivity" accesskey="7" title="当前进行的活动"><img src="/static/images/当前进行的活动.png" alt="" /></a><br />
-            当前进行的活动</li>
-          <li><a href="/beginActivity" accesskey="8" title="发起活动"><img src="/static/images/发起活动.png" alt="" /></a><br />
+          <li><a href="design_activity" accesskey="7" title="发起活动"><img src="/static/images/design_activity.png" alt="" /></a><br />
             发起活动</li>
+          <li><a href="current_activity" accesskey="8" title="当前进行的活动"><img src="/static/images/current_activity.png" alt="" /></a><br />
+            当前进行的活动</li>
           <br />
         </ul>
       </div>
       <div class="col-md-3 column"> <br />
         <br />
         <ul>
-          <li><a href="/pastActivity" accesskey="9" title="过去的活动"><img src="/static/images/过去的活动.png" alt="" /></a><br />
+          <li><a href="past_activity" accesskey="9" title="过去的活动"><img src="/static/images/past_activity.png" alt="" /></a><br />
             过去的活动</li>
-          <li><a href="/us" accesskey="10" title="联系我们"><img src="/static/images/联系我们.png" alt="" /></a><br />
-            联系我们</li>
+          <li><a href="abort_activity" accesskey="10" title="中止的活动"><img src="/static/images/abort_activity.png" alt="" /></a><br />
+            中止的活动</li>
         </ul>
       </div>
       <div class="col-md-4 column">
@@ -71,6 +81,8 @@ $def with(userinfor,informations)
       </div>
     </div>
   </div>
+  
+  <!--footer-->
   <div style=" position: relative;bottom:-150px" >
     <hr style="height:2px">
     <div style="text-align:right"> <a href="/us">联系我们</a> </div>
