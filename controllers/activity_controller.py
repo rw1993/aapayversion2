@@ -29,7 +29,16 @@ class show_a_activity:
         myuid=cookies[u'uid']
         activity_id=webinput[u'activity_id']
         a=activity(activity_id=activity_id)
-        return "hello"
+        p={}
+        for people in a.people:
+            if people[u'uid']==myuid:
+                p=people
+        t=0
+        if myuid==a.host_uid:
+            t=1
+        else:
+            t=2
+        return render.activity_details(a,people,t)
 
         
 
