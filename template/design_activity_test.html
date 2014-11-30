@@ -8,13 +8,19 @@ $def with(friends)
 		  <script src="http://apps.bdimg.com/libs/jquery/2.0.0/jquery.min.js"></script>
 		  <script src="http://apps.bdimg.com/libs/bootstrap/3.0.3/css/bootstrap-theme.min.css"></script>
 		  <script src="http://apps.bdimg.com/libs/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+          <script src="http://apps.bdimg.com/libs/angular.js/1.2.15/angular.min.js"></script>
+
+			<script>
+            function validateCtrl($scope) {
+            }
+            </script>
 		  <script>
 var pastname="";
 		  var count=0;</script>
 		  </head>
 
 		  <body>
-          <!--页头-->
+          <!--head-->
           <div class="container">
             <div class="row clearfix">
               <div class="col-md-12 column">
@@ -33,21 +39,42 @@ var pastname="";
             <div class="row clearfix">
               <div class="col-md-12 column">
                 <div class="row clearfix">
-                  <form role="form" action="/sendBeginWeibo" method="POST">
-                    <div class="col-md-5 column">
-                      <div class="form-group">
+                 <div class="col-md-5 column">
+                <form role="form" action="/sendBeginWeibo" method="POST" ng-app="" ng-controller="validateCtrl" name="myForm" novalidate>
+                   
+                    
+                    
+                    
+                    
+                      <div class="form-group has-feedback" ng-class="{ 'has-error' : myForm.ActivityName.$invalid && myForm.ActivityName.$dirty }">
                         <label for="ActivityName">活动名称</label>
-                        <input type="" class="form-control" name="ActivityName" />
-                      </div>
+                        <input id="ActivityName" type="text" class="form-control" name="ActivityName" ng-model="ActivityName" required>
+                        <span class="float glyphicon glyphicon-ok form-control-feedback" ng-show="myForm.ActivityName.$dirty && myForm.ActivityName.$valid" ></span>
+                        
+                        <span style="color:red" ng-show="myForm.ActivityName.$invalid && myForm.ActivityName.$dirty">
+                        <span ng-show="myForm.ActivityName.$error.required||myForm.ActivityName.$pristine">请输入活动名称</span>
+                        </span>
+                      </div>                   
+
+
+
+
+
+
+                      
                       <div class="form-group">
                         <label for="ActivityMoney">活动总金额</label>
                         <br /><small>本系统默认AA平摊方案，如需调整，请在发起活动后在重定义页面进行调整</small>
                         <input type="" class="form-control" name="ActivityMoney" />
                       </div>
+                      
+                      
                       <div class="form-group">
                         <label for="ActivityTime">活动时间</label>
                         <input type="" class="form-control" name="ActivityTime" />
                       </div>
+                      
+                      
                       <div class="form-group">
                         <label for="ActivityPosition">活动地点</label>
                         <input type="" class="form-control" name="ActivityPosition" />
@@ -56,8 +83,16 @@ var pastname="";
                         <label for="ActivityBrief">活动简介</label>
                         <textarea class="form-control" name="ActivityBrief" rows="3"></textarea>
                        </div>
-                      <button type="submit" class="btn btn-default">发起活动</button>
+                       
+                                           
+                      <button type="submit" ng-disabled="myForm.$invalid" class="btn btn-default">发起活动</button>
+                      
                     </div>
+                    
+                    
+                    
+                    
+                    
                     <div class="col-md-1 column">
                     <br />
                     </div>
@@ -78,7 +113,7 @@ var pastname="";
                 </div>
               </div>
             </div>
-            <!--页脚-->
+            <!--footer-->
             <div style=" position: relative;bottom:-100px" >
               <hr style="height:2px">
               <div style="text-align:right"> <a href="/us">联系我们</a> </div>
