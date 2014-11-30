@@ -26,7 +26,7 @@ class redirect_uri:
             except:
                 userinfor=u.get_user_info_weibo()
                 informations=u.informations
-                return render.user_index(userinfor,informations)
+                return render.user_index(userinfor,informations,u.account)
 
 
 
@@ -47,7 +47,7 @@ class show_user_index():
         u=user(uid=uid)
         informations=u.informations
         userinfor=u.get_user_info_weibo()
-        return render.user_index(userinfor,informations)
+        return render.user_index(userinfor,informations,u.account)
 
 
 class show_set_account_page:
@@ -64,4 +64,4 @@ class set_account:
         u.set_account(account)
         userinfor=u.get_user_info_weibo()
         informations=u.informations
-        return render.user_index(userinfor,informations)
+        return render.user_index(userinfor,informations,u.account)

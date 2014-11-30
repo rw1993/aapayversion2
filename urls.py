@@ -7,5 +7,6 @@ urls=(
         "/design_activity","controllers.indexs.show_design_activity_page",
         "/set_a_activity","controllers.activity_controller.set_a_activity",
         "/activity","controllers.activity_controller.show_a_activity",
+        "/current_activity","controllers.activity_controller.show_current_activity",
 
         )
