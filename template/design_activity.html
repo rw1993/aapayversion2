@@ -33,7 +33,7 @@ var pastname="";
             <div class="row clearfix">
               <div class="col-md-12 column">
                 <div class="row clearfix">
-                  <form role="form" action="/sendBeginWeibo" method="POST">
+                  <form role="form" action="/set_a_activity" method="POST">
                     <div class="col-md-5 column">
                       <div class="form-group">
                         <label for="ActivityName">活动名称</label>
@@ -66,10 +66,9 @@ var pastname="";
                         <ul>
                           $for friend in friends:
                           <li>
-                            <input type='checkbox' name='$friends.index(name)' value= "$friend['uid']">
+                            <input type='checkbox' name='$friend[u'id']' value=
+                            "$friend[u'id']">
                             $friend[u'name']
-                            <input  class="hidden" name='name' value="$friend[u'name']">
-                            <input  class="hidden" name='account' value="$friend[u'account']">
                           </li>
                         </ul>
                       </div>
