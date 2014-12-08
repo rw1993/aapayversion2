@@ -196,11 +196,11 @@ $def with(activity,me,type)
                   </tbody>
                 </table>	
             	$if activity.state=="wait_to_begin" and p[u'state']=="invited":
-            		<form action="attend_activity" method="POST">
+            		<form action="attend" method="POST">
                           <button type="submit" class="btn btn-default"
                            	  name="activity_id" value="$activity.activity_id">参加活动</button>
                     </form>
-                    <form action="refuse_activity" method="POST">
+                    <form action="refuse" method="POST">
                           <button type="submit" class="btn btn-default"
                            	  name="activity_id" value="$activity.activity_id">退出活动</button>
                     </form>
