@@ -4,6 +4,26 @@ import web
 import GetWeiBo
 from activity import activity
 class user:
+    def attend_activity(self,activity_id):
+        a=activity(activity_id=activity_id)
+        self.inlist.append(activity_id)
+        index=-1
+        for people in a.people:
+            if people[u'uid']==self.uid:
+                index=a.people.index(people)
+                break
+        a.people[index][u'state']='in'
+        ifchange=True
+        for people in a.people:
+            if people['state']=="in":
+                ifchange=True
+            else:
+                ifchange=False
+                break
+        if ifchange:
+            a.state="people_all_in"
+        a.save()
+        self.save()
     def set_a_activity(self,activity_name,activity_money,activity_time,activity_position,activity_brief,friends_in):
         self.get_from_cookie()
         client=self.getclient(self.access_token,self.expires_in)

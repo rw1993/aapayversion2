@@ -119,17 +119,17 @@ $def with(activity,me,type)
                     重定义活动</a>
                     <form action="begin_to_pay" method="POST">
                           <button type="submit" class="btn btn-default"
-                              name="activity_id" value="$activity.id">启动付款</button>
+                              name="activity_id" value="$activity.activity_id">启动付款</button>
                     </form>
                 $elif activity.state=="pay_finished":
                 	<form action="start_activity" method="POST">
                           <button type="submit" class="btn btn-default"
-                           	  name="activity_id" value="$activity.id">开始活动</button>
+                           	  name="activity_id" value="$activity.activity_id">开始活动</button>
                     </form>
                 $elif activity.state=="start":	
                 	<form action="end_activity" method="POST">
                           <button type="submit" class="btn btn-default"
-                           	  name="activity_id" value="$activity.id">确认活动完成</button>
+                           	  name="activity_id" value="$activity.activity_id">确认活动完成</button>
                     </form>
                 $elif activity.state=="end":	
                 	<a href="refund?activity_id=$activity.activity_id" class="btn btn-default btn-default" role="button">
@@ -210,7 +210,7 @@ $def with(activity,me,type)
                            	  name="activity_id" value="$activity.activity_id">线上支付</button>
                     </form>
                 $elif activity.state=="wait_to_fillmoney" and p[u'state']!="payed":
-                	<form action="pay" method="POST">
+                	<form action="repay" method="POST">
                          <button type="submit" class="btn btn-default"
                            	  name="activity_id" value="$activity.activity_id">确认补款</button>
                     </form>
