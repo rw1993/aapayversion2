@@ -30,7 +30,7 @@ var pastname="";
                   <li> <a href="#">发起活动</a> </li>
                   <li> <a href="current_activity">当前进行的活动</a> </li>
                   <li> <a href="past_activity">过去的活动</a> </li>
-                  <li> <a href="abort_activity">中止的活动</a> </li>
+                  <li> <a href="refused_activity">中止的活动</a> </li>
                 </ul>
               </div>
             </div>
@@ -46,15 +46,13 @@ var pastname="";
                       <h3> 请更改活动的详细信息</h3>
                       <div class="form-group">
                         <label for="ActivityTime">活动时间</label>
-                        <input type="" class="form-control" name="ActivityTime" />
+                        <input type="" class="form-control" name="ActivityTime"/>
                       </div>
                       <div class="form-group">
                         <label for="ActivityPosition">活动地点</label>
                         <input type="" class="form-control" name="ActivityPosition" />
                       </div>
                       <input type="button"  class="btn btn-default" onclick="showElement()" value="调整活动参与人员">
-                      
-                      
                       <div id="choose_friends" style="display:none">
                       <div style='width:200;height:200;overflow-y:scroll;border:1px solid black' >
                         <ul>
