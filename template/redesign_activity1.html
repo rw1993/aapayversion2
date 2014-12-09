@@ -29,7 +29,8 @@ $def with(activity,friends)
             <div class="row clearfix">
               <div class="col-md-12 column">
                 <div class="row clearfix">
-                  <form role="form" action="/set_a_activity" method="POST">
+                  <form role="form" action="/redesign_2_step" method="POST">
+                    <input name="activity_id" value="$activity.activity_id" class="hidden" />
                   	<div class="col-md-3 column">
                     <br />
                     </div>
@@ -41,7 +42,7 @@ $def with(activity,friends)
                               <li>
                               $ tmp = 1
                               $for people in activity.people:
-                                  $if people['screen_name']==$friend[u'name']:
+                                  $if people['screen_name']==friend[u'name']:
                                       $ tmp = 2
                                       $break
                                   $else:

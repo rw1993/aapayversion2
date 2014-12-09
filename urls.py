@@ -10,9 +10,12 @@ urls=(
         "/current_activity","controllers.activity_controller.show_current_activity",
         "/past_activity","controllers.activity_controller.show_past_activity",
         "/attend_activity","controllers.activity_controller.attend_activity",
+        "/refuse_activity","controllers.activity_controller.refuse_activity",
         "/begin_to_pay","controllers.activity_controller.begin_to_pay",
         "/pay","controllers.activity_controller.pay",
         "/payed","controllers.activity_controller.payed",
         "/redesign_activity","controllers.activity_controller.redesign_activity",
+        "/redesign_2_step","controllers.activity_controller.redesign_2_step",
+        "/redesign_and_set","controllers.activity_controller.redesign_and_set",
 
         )

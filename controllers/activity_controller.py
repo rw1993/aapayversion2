@@ -5,6 +5,29 @@ from models.activity import activity
 
 
 render=web.template.render("template")
+class redesign_and_set:
+    def POST(self):
+        webinput=web.input()
+        cookies=web.cookies()
+        return "hello"
+
+class redesign_2_step:
+    def POST(self):
+        webinput=web.input()
+        cookies=web.cookies()
+        uid=cookies[u'uid']
+        u=user(uid=uid)
+        friends_invited=[]
+        for friend in user.get_friends_pachong():
+            try:
+                uid=webinput[str(friend[u'id'])]
+                friends_invited.append(friend)
+            except:
+                continue
+        activity_id=webinput[u'activity_id']
+        a=activity(activity_id=int(activity_id))
+        return render.redesign_activity2(a,friends_invited)
+                
 class redesign_activity:
     def GET(self):
         webinput=web.input()
@@ -14,7 +37,7 @@ class redesign_activity:
         uid=cookies[u'uid']
         u=user(uid=uid)
         friends=u.get_friends_pachong()
-        return render.redesign_activity(a,friends)
+        return render.redesign_activity1(a,friends)
 class payed:
     def GET(self):
         webinput=web.input()
