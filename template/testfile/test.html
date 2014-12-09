@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html> 
+    
+<body>
+<h2>验证实例</h2>
+
+<form role="form" action="/sendBeginWeibo" method="POST" ng-app="" ng-controller="validateCtrl" name="myForm" novalidate>
+
+
+<p>Username:<br>
+<input type="text" name="ActivityName" ng-model="ActivityName" required>
+<span style="color:red" ng-show="myForm.ActivityName.$dirty && myForm.ActivityName.$invalid">
+<span ng-show="myForm.ActivityName.$error.required">Username is required.</span>
+</span>
+</p>
+
+<p>Email:<br>
+<input type="text" name="email" ng-model="email" ng-pattern="/^([0-9]{4}-(((0[13578]|(10|12))-(0[1-9]|[1-2][0-9]|3[0-1]))|(02-(0[1-9]|[1-2][0-9]))|((0[469]|11)-(0[1-9]|[1-2][0-9]|30))))(\s)((([1-9]{1})|([0-1][0-9])|([1-2][0-3])):([0-5][0-9]))$/" required>
+<span style="color:red" ng-show="myForm.email.$dirty && myForm.email.$invalid">
+<span ng-show="myForm.email.$error.required">Email is required.</span>
+<span ng-show="myForm.email.$error.pattern">Invalid email address.</span>
+</span>
+</p>
+
+<p>
+<input type="submit"
+ng-disabled="myForm.user.$dirty && myForm.user.$invalid ||  
+myForm.email.$dirty && myForm.email.$invalid">
+</p>
+
+</form>
+
+<script src="http://apps.bdimg.com/libs/angular.js/1.2.15/angular.min.js"></script>
+<script>
+function validateCtrl($scope) {
+}
+</script>
+
+</body>
+</html>
+			
