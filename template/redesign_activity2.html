@@ -47,9 +47,9 @@ $def with(activity,peopleIN)
                         <label>活动金额分配方案</label>
                         $for p in peopleIN:
                             <div class="form-group">
-                            <label for="$p['uid']" class="col-sm-2 control-label">$p['screen_name']</label>
+                            <label for="$p['id']" class="col-sm-2 control-label">$p['screen_name']</label>
 						    <div class="col-sm-4">
-						    <input type="" class="form-control" name="$p['uid']" placeholder="$p[u'money']"/>
+						    <input type="" class="form-control" name="$p['id']" />
                             </div>
                             </div>
                       </div>
