@@ -30,28 +30,36 @@ $def with(activity,peopleIN)
               <div class="col-md-12 column">
                 <div class="row clearfix">
                   <form role="form" action="/redesign_and_set" method="POST">
+                    <input name="activity_id" value="$activity.activity_id" class="hidden" />
                   	<div class="col-md-3 column">
                     <br />
                     </div>
                     <div class="col-md-6 column">
                       <h3> 请更改活动的详细信息</h3>
                       <div class="form-group">
-                        <label for="ActivityTime">活动时间</label>
-                        <input type="" class="form-control" name="ActivityTime" placeholder="$activity.activity_time"/>
+                        <label for="activity_time">活动时间</label>
+                        <input type="" class="form-control" name="activity_time" placeholder="$activity.activity_time"/>
                       </div>
                       <div class="form-group">
-                        <label for="ActivityPosition">活动地点</label>
-                        <input type="" class="form-control" name="ActivityPosition" placeholder="$activity.activity_position"/>
+                        <label for="activity_position">活动地点</label>
+                        <input type="" class="form-control" name="activity_position" placeholder="$activity.activity_position"/>
+                      </div>
+                      <div class="form-group">
+                        <label for="activity_brief">活动简介</label>
+                        <textarea class="form-control" name="activity_brief" placeholder="$activity.activity_brief" rows="3"></textarea>
                       </div>
                       <div class="form-group">
                         <label>活动金额分配方案</label>
                         $for p in peopleIN:
+                            <span>
                             <div class="form-group">
-                            <label for="$p['id']" class="col-sm-2 control-label">$p['screen_name']</label>
-						    <div class="col-sm-4">
-						    <input type="" class="form-control" name="$p['id']" />
+                            <label for="$p['id']" class="col-sm-4 control-label">$p['screen_name']</label>
+			    <div class="col-sm-4">
+			    <input type="" class="form-control" name="$p['id']" />
                             </div>
                             </div>
+                            </span>
+			    <br />
                       </div>
                       <br /><button type="submit" class="btn btn-default">重新发起活动</button>
                     </div>

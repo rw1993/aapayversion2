@@ -23,7 +23,7 @@ $def with(activity,me,type)
       <li> <a href="design_activity">发起活动</a> </li>
       <li> <a href="current_activity">当前进行的活动</a> </li>
       <li> <a href="past_activity">过去的活动</a> </li>
-      <li> <a href="abort_activity">中止的活动</a> </li>
+      <li> <a href="refused_activity">中止的活动</a> </li>
     </ul>
   </div>
   <!--main-->
@@ -115,21 +115,22 @@ $def with(activity,me,type)
                   </tbody>
                 </table>
             	$if activity.state=="people_all_in":
-                	<a href="redesign_activity?activity_id=$activity.activity_id" class="btn btn-default btn-default" role="button">
-                    重定义活动</a>
                     <form action="begin_to_pay" method="POST">
                           <button type="submit" class="btn btn-default"
-                              name="activity_id" value="$activity.id">启动付款</button>
+                              name="activity_id" value="$activity.activity_id">启动付款</button>
                     </form>
+                $elif activity.state=="refused" or activity.state=="wait_to_begin":
+                    <a href="redesign_activity?activity_id=$activity.activity_id" class="btn btn-default btn-default" role="button">
+                    重定义活动</a>
                 $elif activity.state=="pay_finished":
                 	<form action="start_activity" method="POST">
                           <button type="submit" class="btn btn-default"
-                           	  name="activity_id" value="$activity.id">开始活动</button>
+                           	  name="activity_id" value="$activity.activity_id">开始活动</button>
                     </form>
                 $elif activity.state=="start":	
                 	<form action="end_activity" method="POST">
                           <button type="submit" class="btn btn-default"
-                           	  name="activity_id" value="$activity.id">确认活动完成</button>
+                           	  name="activity_id" value="$activity.activity_id">确认活动完成</button>
                     </form>
                 $elif activity.state=="end":	
                 	<a href="refund?activity_id=$activity.activity_id" class="btn btn-default btn-default" role="button">
@@ -196,11 +197,12 @@ $def with(activity,me,type)
                   </tbody>
                 </table>	
             	$if activity.state=="wait_to_begin" and p[u'state']=="invited":
-            		<form action="attend" method="POST">
+            		<form action="attend_activity" method="POST">
                           <button type="submit" class="btn btn-default"
                            	  name="activity_id" value="$activity.activity_id">参加活动</button>
                     </form>
-                    <form action="refuse" method="POST">
+                    <form action="refuse_activity" method="POST">
+                          <input name="" value="$" class="hidden" />
                           <button type="submit" class="btn btn-default"
                            	  name="activity_id" value="$activity.activity_id">退出活动</button>
                     </form>
@@ -210,7 +212,7 @@ $def with(activity,me,type)
                            	  name="activity_id" value="$activity.activity_id">线上支付</button>
                     </form>
                 $elif activity.state=="wait_to_fillmoney" and p[u'state']!="payed":
-                	<form action="pay" method="POST">
+                	<form action="repay" method="POST">
                          <button type="submit" class="btn btn-default"
                            	  name="activity_id" value="$activity.activity_id">确认补款</button>
                     </form>

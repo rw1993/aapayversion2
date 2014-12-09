@@ -44,7 +44,7 @@ $elif type==3:
   <div class="row clearfix">
     <div class="col-md-12 column">
       <div class="col-md-6 column">
-        <ul>
+        <ul class="list-unstyled">
         $for a in activitysIN[::-1]:
         	<li>
             <div class="panel-group" id="panel-153902">
@@ -68,7 +68,7 @@ $elif type==3:
         </ul>
       </div>
       <div class="col-md-6 column"> 
-      	<ul>
+      	<ul class="list-unstyled">
         $for a in activitysORG[::-1]:
             <li>
             <div class="panel-group" id="panel-72507">
@@ -78,7 +78,7 @@ $elif type==3:
             组织的活动：$a.activity_name</a> </div>
             <div id="$a.activity_id" class="panel-collapse in">
             <div class="panel-body">
-            <ul>
+            <ul class="list-unstyled">
             <li>活动地点: $a.activity_position</li>
             <li>活动时间：$a.activity_time</li>
             <li>活动总金额：$a.activity_money</li>

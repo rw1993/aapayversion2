@@ -40,7 +40,7 @@ $def with(userinfor,informations,useraccount)
         </small> </div>
       <div class="col-md-3 column"> <br />
         <br />
-        <ul >
+        <ul class="list-unstyled">
           <li><a href="design_activity" accesskey="7" title="发起活动"><img src="/static/images/design_activity.png" alt="" /></a><br />
             发起活动</li>
           <li><a href="current_activity" accesskey="8" title="当前进行的活动"><img src="/static/images/current_activity.png" alt="" /></a><br />
@@ -50,7 +50,7 @@ $def with(userinfor,informations,useraccount)
       </div>
       <div class="col-md-3 column"> <br />
         <br />
-        <ul>
+        <ul class="list-unstyled">
           <li><a href="past_activity" accesskey="9" title="过去的活动"><img src="/static/images/past_activity.png" alt="" /></a><br />
             过去的活动</li>
           <li><a href="refused_activity" accesskey="10" title="中止的活动"><img src="/static/images/abort_activity.png" alt="" /></a><br />
@@ -65,7 +65,7 @@ $def with(userinfor,informations,useraccount)
 					</h3>
 				</div>
 				<div class="panel-body">
-                <ul>
+                <ul class="list-unstyled">
                 $for information in informations[::-1]:
                     <li>$information</li>
                 </ul>
