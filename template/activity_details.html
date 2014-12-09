@@ -115,13 +115,11 @@ $def with(activity,me,type)
                   </tbody>
                 </table>
             	$if activity.state=="people_all_in":
-                	<a href="redesign_activity?activity_id=$activity.activity_id" class="btn btn-default btn-default" role="button">
-                    重定义活动</a>
                     <form action="begin_to_pay" method="POST">
                           <button type="submit" class="btn btn-default"
                               name="activity_id" value="$activity.activity_id">启动付款</button>
                     </form>
-                $elif activity.state=="refused":
+                $elif activity.state=="refused" or activity.state=="wait_to_begin":
                     <a href="redesign_activity?activity_id=$activity.activity_id" class="btn btn-default btn-default" role="button">
                     重定义活动</a>
                 $elif activity.state=="pay_finished":
