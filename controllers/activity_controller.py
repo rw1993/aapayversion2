@@ -10,15 +10,29 @@ class redesign_and_set:
         webinput=web.input()
         cookies=web.cookies()
         activity_id=webinput[u'activity_id']
-        a=activity(activity_id=int(activity_id)]
+        a=activity(activity_id=int(activity_id))
         a.activity_time=webinput[u'activity_time']
         a.activity_position=webinput[u'activity_position']
         a.activity_brief=webinput[u'activity_brief']
         uid=cookies[u'uid']
         people=[]
         u=user(uid=uid)
+        for friend in u.get_friends_pachong():
+            try:
+                money=webinput[str(friend[u'id'])]
+                p={}
+                p[u'state']="invited"
+                p[u'money']=float(money)
+                p[u'uid']=friend[u'id']
+                p[u'screen_name']=friend[u'screen_name']
+                people.append(p)
+            except:
+                continue
+        a.people=people
+        a.save()
+        url="activity?activity_id="+activity_id
+        web.seeother(url)
 
-        return "hello"
 
 class redesign_2_step:
     def POST(self):
