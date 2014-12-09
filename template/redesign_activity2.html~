@@ -53,7 +53,7 @@ $def with(activity,peopleIN)
                         $for p in peopleIN:
                             <span>
                             <div class="form-group">
-                            <label for="$p['id']" class="col-sm-4 control-label">$p['screen_name']</label>
+                            <label for="$p['id']" class="control-label">$p['screen_name']</label>
 			    <div class="col-sm-4">
 			    <input type="" class="form-control" name="$p['id']" />
                             </div>

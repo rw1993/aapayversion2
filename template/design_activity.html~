@@ -60,7 +60,7 @@ $def with(friends)
                     </div>
                     <div class="col-md-6 column">
                       <div STYLE='width:200;height:200;overflow-y:scroll;border:1px solid black'>
-                        <ul class="list-unstyled">
+                        <ul>
                           $for friend in friends:
                           <li>
                             <input type='checkbox' name='$friend[u'id']' value=
