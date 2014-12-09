@@ -1,4 +1,4 @@
-$def with(activity,friends)
+$def with(activity,peopleIN)
 <!DOCTYPE html>
 <html>
 		  <head>
@@ -8,15 +8,6 @@ $def with(activity,friends)
 		  <script src="http://apps.bdimg.com/libs/jquery/2.0.0/jquery.min.js"></script>
 		  <script src="http://apps.bdimg.com/libs/bootstrap/3.0.3/css/bootstrap-theme.min.css"></script>
 		  <script src="http://apps.bdimg.com/libs/bootstrap/3.0.3/js/bootstrap.min.js"></script>
-		  <script>
-var pastname="";
-		  var count=0;</script>
-          <script>
-			function showElement()
-			{
-			document.getElementById("choose_friends").style.display="block";
-			}
-		  </script>
 		  </head>
 
 		  <body>
@@ -27,7 +18,7 @@ var pastname="";
                 <h3 class="text-left">Sina AApay </h3>
                 <ul class="nav nav-tabs">
                   <li> <a href="user_index">首页</a> </li>
-                  <li> <a href="#">发起活动</a> </li>
+                  <li> <a href="design_activity">发起活动</a> </li>
                   <li> <a href="current_activity">当前进行的活动</a> </li>
                   <li> <a href="past_activity">过去的活动</a> </li>
                   <li> <a href="refused_activity">中止的活动</a> </li>
@@ -38,7 +29,7 @@ var pastname="";
             <div class="row clearfix">
               <div class="col-md-12 column">
                 <div class="row clearfix">
-                  <form role="form" action="/set_a_activity" method="POST">
+                  <form role="form" action="/redesign_and_set" method="POST">
                   	<div class="col-md-3 column">
                     <br />
                     </div>
@@ -46,47 +37,31 @@ var pastname="";
                       <h3> 请更改活动的详细信息</h3>
                       <div class="form-group">
                         <label for="ActivityTime">活动时间</label>
-                        <input type="" class="form-control" name="ActivityTime"/>
+                        <input type="" class="form-control" name="ActivityTime" placeholder="$activity.activity_time"/>
                       </div>
                       <div class="form-group">
                         <label for="ActivityPosition">活动地点</label>
-                        <input type="" class="form-control" name="ActivityPosition" />
+                        <input type="" class="form-control" name="ActivityPosition" placeholder="$activity.activity_position"/>
                       </div>
-                      <input type="button"  class="btn btn-default" onclick="showElement()" value="调整活动参与人员">
-                      <div id="choose_friends" style="display:none">
-                      <div style='width:200;height:200;overflow-y:scroll;border:1px solid black' >
-                        <ul>
-                          $for friend in friends:
-                              <li>
-                              $ tmp = 1
-                              $for people in activity.people:
-                                  $if people['screen_name']==$friend[u'name']:
-                                      $ tmp = 2
-                                      $break
-                                  $else:
-                                      $ tmp = 1
-                                      $continue
-                              $if tmp==2:
-                                  <input type='checkbox' name='$friend[u'id']' value="$friend[u'id']" checked="true">
-                                  $friend[u'name']
-                              $if tmp==1:
-                                   <input type='checkbox' name='$friend[u'id']' value="$friend[u'id']">
-                                  $friend[u'name']
-                              </li>
-                        </ul>
+                      <div class="form-group">
+                        <label>活动金额分配方案</label>
+                        $for p in peopleIN:
+                            <div class="form-group">
+                            <label for="$p['uid']" class="col-sm-2 control-label">$p['screen_name']</label>
+						    <div class="col-sm-4">
+						    <input type="" class="form-control" name="$p['uid']" placeholder="$p[u'money']"/>
+                            </div>
+                            </div>
                       </div>
-                      </div>
-                      
-                      <br /><button type="submit" class="btn btn-default">下一步</button>
+                      <br /><button type="submit" class="btn btn-default">重新发起活动</button>
                     </div>
-                    
                     <div class="col-md-3 column">
                     </div>
                   </form>
                 </div>
               </div>
             </div>
-            <!--页脚-->
+            <!--footer-->
             <div style=" position: relative;bottom:-100px" >
               <hr style="height:2px">
               <div style="text-align:right"> <a href="/us">联系我们</a> </div>
