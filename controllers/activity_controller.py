@@ -9,6 +9,15 @@ class redesign_and_set:
     def POST(self):
         webinput=web.input()
         cookies=web.cookies()
+        activity_id=webinput[u'activity_id']
+        a=activity(activity_id=int(activity_id)]
+        a.activity_time=webinput[u'activity_time']
+        a.activity_position=webinput[u'activity_position']
+        a.activity_brief=webinput[u'activity_brief']
+        uid=cookies[u'uid']
+        people=[]
+        u=user(uid=uid)
+
         return "hello"
 
 class redesign_2_step:
@@ -18,7 +27,7 @@ class redesign_2_step:
         uid=cookies[u'uid']
         u=user(uid=uid)
         friends_invited=[]
-        for friend in user.get_friends_pachong():
+        for friend in u.get_friends_pachong():
             try:
                 uid=webinput[str(friend[u'id'])]
                 friends_invited.append(friend)
