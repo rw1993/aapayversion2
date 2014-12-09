@@ -9,6 +9,7 @@ urls=(
         "/activity","controllers.activity_controller.show_a_activity",
         "/current_activity","controllers.activity_controller.show_current_activity",
         "/past_activity","controllers.activity_controller.show_past_activity",
+        "/refused_activity","controllers.activity_controller.show_refused_activity",
         "/attend_activity","controllers.activity_controller.attend_activity",
         "/refuse_activity","controllers.activity_controller.refuse_activity",
         "/begin_to_pay","controllers.activity_controller.begin_to_pay",

@@ -5,6 +5,15 @@ from models.activity import activity
 
 
 render=web.template.render("template")
+class refuse_activity:
+    def POST(self):
+        webinput=web.input()
+        activity_id=webinput[u'activity_id']
+        a=activity(activity_id=int(activity_id))
+        a.state="refused"
+        a.save()
+        url="/activity?activity_id="+activity_id
+        web.seeother(url)
 class redesign_and_set:
     def POST(self):
         webinput=web.input()
@@ -156,7 +165,25 @@ class show_past_activity:
             a=activity(activity_id=activity_id)
             if a.state=="end" or a.state=="wait_to_fill":
                 past_in.append(a)
-        return render.activity_list(past_host,past_in,2)
+        return render.activity_list(past_in,past_host,2)
+class show_refused_activity:
+    def GET(self):
+        cookies=web.cookies()
+        uid=cookies[u'uid']
+        u=user(uid=uid)
+        refuse_host=[]
+        for activity_id in u.hostlist:
+            a=activity(activity_id=activity_id)
+            if a.state=="refused":
+                refuse_host.append(a)
+        refuse_in=[]
+        for activity_id in u.inlist:
+            a=activity(activity_id=activity_id)
+            if a.state=="refused":
+                refuse_in.append(a)
+                print a.activity_id
+        return render.activity_list(refuse_in,refuse_host,3)
+
         
 class show_a_activity:
     def GET(self):
