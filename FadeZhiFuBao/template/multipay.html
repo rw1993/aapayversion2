@@ -1,4 +1,4 @@
-$def with(money,account,activity_id)
+$def with(money,activity_id)
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -18,14 +18,9 @@ $def with(money,account,activity_id)
       </div>
       <div class="row clearfix">
         <div class="col-md-6 column">
-          <form role="form" action="Pay" method="POST">
+          <form role="form" action="multipayed" method="POST">
             <div class="form-group">
-              <label>收款人账号</label>    <small>请仔细核对收款人账号</small>
-              <input class="form-control" id="disabledInput" type="text" 
-            value="$account" disabled>
-            </div>
-            <div class="form-group">
-              <label>转账金额</label>    <small>请仔细核对转账金额</small>
+              <label>转账总金额</label>    <small>请仔细核对转账金额</small>
               <input class="form-control" id="disabledInput" type="text" 
             value="$money" disabled>
             </div>
