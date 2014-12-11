@@ -5,6 +5,66 @@ from models.activity import activity
 
 
 render=web.template.render("template")
+class begin_fill:
+    def POST(self):
+        webinput=web.input()
+        activity_id=webinput[u'activity_id']
+        a=activity(activity_id=int(activity_id))
+        a.state="wait_to_fillmoney"
+        for people in a.people:
+            index=a.people.index(people)
+            a.people[index][u'state']="unpay"
+            uid=people[u'uid']
+            money=webinput[str(uid)]
+            a.people[index][u'money']=float(money)
+        a.save()
+        web.seeother("/activity?activity_id="+activity_id)
+class set_fill_money:
+    def GET(self):
+        webinput=web.input()
+        activity_id=webinput[u'activity_id']
+        a=activity(activity_id=int(activity_id))
+        return render.set_fill_money(a)
+class end_activity:
+    def POST(self):
+        webinput=web.input()
+        activity_id=webinput[u'activity_id']
+        a=activity(activity_id=int(activity_id))
+        a.state="end"
+        a.save()
+        web.seeother("/activity?activity_id="+activity_id)
+
+        
+class start_activity:
+    def POST(self):
+        webinput=web.input()
+        activity_id=webinput[u'activity_id']
+        a=activity(activity_id=int(activity_id))
+        a.state="start"
+        a.save()
+        web.seeother("/activity?activity_id="+activity_id)
+class refunded:
+    def GET(self):
+        webinput=web.input()
+        activity_id=webinput[u'activity_id']
+        web.seeother("/activity?activity_id="+activity_id)
+class set_refund_money:
+    def POST(self):
+        summoney=0.0
+        webinput=web.input()
+        activity_id=webinput[u'activity_id']
+        a=activity(activity_id=int(activity_id))
+        for people in a.people:
+            money=webinput[str(people[u'uid'])]
+            summoney+=float(money)
+        url="http://0.0.0.0:8000/multipay?summoney="+str(summoney)+"&activity_id="+activity_id
+        web.seeother(url)
+class begin_refund:
+    def GET(self):
+        webinput=web.input()
+        activity_id=webinput[u'activity_id']
+        a=activity(activity_id=int(activity_id))
+        return render.set_refund(a)
 class refuse_activity:
     def POST(self):
         webinput=web.input()
@@ -91,7 +151,10 @@ class payed:
                     ifchange=False
                     break
             if ifchange:
-                a.state="pay_finished"
+                if a.state=="wait_to_pay":
+                    a.state="pay_finished"
+                else:
+                    a.state="fillmoney_end"
             a.save()
             web.seeother("/activity?activity_id="+activity_id)
         else:
@@ -131,6 +194,7 @@ class attend_activity:
         activity_id=webinput[u'activity_id']
         cookies=web.cookies()
         uid=cookies[u'uid']
+        print uid
         u=user(uid=uid)
         u.attend_activity(int(activity_id))
         web.seeother("/activity?activity_id="+activity_id)
@@ -158,12 +222,12 @@ class show_past_activity:
         past_host=[]
         for activity_id in u.hostlist:
             a=activity(activity_id=activity_id)
-            if a.state=="end" or a.state=="wait_to_fill":
+            if a.state=="end" or a.state=="wait_to_fill" or a.state=="fillmoney_end":
                 past_host.append(a)
         past_in=[]
         for activity_id in u.inlist:
             a=activity(activity_id=activity_id)
-            if a.state=="end" or a.state=="wait_to_fill":
+            if a.state=="end" or a.state=="wait_to_fill" or a.state=="fillmoney_end":
                 past_in.append(a)
         return render.activity_list(past_in,past_host,2)
 class show_refused_activity:
@@ -194,14 +258,14 @@ class show_a_activity:
         a=activity(activity_id=activity_id)
         p={}
         for people in a.people:
-            if people[u'uid']==myuid:
+            if str(people[u'uid'])==myuid:
                 p=people
         t=0
         if myuid==a.host_uid:
             t=1
         else:
             t=2
-        return render.activity_details(a,people,t)
+        return render.activity_details(a,p,t)
 
         
 
@@ -221,11 +285,12 @@ class set_a_activity:
                 continue
         activity_id=hostuser.set_a_activity(activity_name=webinput[u'ActivityName'],activity_money=webinput[u'ActivityMoney'],activity_time=webinput[u'ActivityTime'],activity_position=webinput[u'ActivityPosition'],activity_brief=webinput[u'ActivityBrief'],friends_in=invite_list)
         
-        
+        ''' 
         for friend in invite_list:
-            u=user(type=1,uid=friend['id'],name=friend['screen_name'])
+            u=user(type=1,uid=int(friend['id']),name=friend['screen_name'])
             u.inlist.append(activity_id)
             u.save()
+        '''
         url="activity?activity_id="
         url+=str(activity_id)
         web.seeother(url)

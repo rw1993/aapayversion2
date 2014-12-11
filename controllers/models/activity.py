@@ -71,7 +71,7 @@ class activity:
             for friend in friends_in:
                 p={}
                 p[u'state']="invited"
-                p[u'uid']=friend['id']
+                p[u'uid']=int(friend['id'])
                 p['screen_name']=friend['screen_name']
                 p[u'money']=money
                 self.people.append(p)

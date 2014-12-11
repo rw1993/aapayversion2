@@ -189,14 +189,14 @@ $def with(activity,me,type)
                       <td>活动简介</td>
                       <td>$activity.activity_brief</td>
                     </tr>
-                    $if activity.state=="wait_to_fillmoney" and p[u'state']!="payed":
+                    $if activity.state=="wait_to_fillmoney" and me[u'state']!="payed":
                         <tr class="warning">
                           <td>补款金额</td>
                           <td>$me[u'money']</td>
                         </tr>
                   </tbody>
                 </table>	
-            	$if activity.state=="wait_to_begin" and p[u'state']=="invited":
+            	$if activity.state=="wait_to_begin" and me[u'state']=="invited":
             		<form action="attend_activity" method="POST">
                           <button type="submit" class="btn btn-default"
                            	  name="activity_id" value="$activity.activity_id">参加活动</button>
@@ -205,13 +205,13 @@ $def with(activity,me,type)
                           <button type="submit" class="btn btn-default"
                            	  name="activity_id" value="$activity.activity_id">退出活动</button>
                     </form>
-                $elif activity.state=="wait_to_pay" and p[u'state']!="payed":
+                $elif activity.state=="wait_to_pay" and me[u'state']!="payed":
                 	<form action="pay" method="POST">
                          <button type="submit" class="btn btn-default"
                            	  name="activity_id" value="$activity.activity_id">线上支付</button>
                     </form>
-                $elif activity.state=="wait_to_fillmoney" and p[u'state']!="payed":
-                	<form action="repay" method="POST">
+                $elif activity.state=="wait_to_fillmoney" and me[u'state']!="payed":
+                	<form action="pay" method="POST">
                          <button type="submit" class="btn btn-default"
                            	  name="activity_id" value="$activity.activity_id">确认补款</button>
                     </form>
