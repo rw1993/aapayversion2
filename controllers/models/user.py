@@ -9,8 +9,9 @@ class user:
         self.inlist.append(activity_id)
         index=-1
         for people in a.people:
-            if people[u'uid']==self.uid:
+            if int(people[u'uid'])==int(self.uid):
                 index=a.people.index(people)
+                print a.people[index][u'screen_name']
                 break
         a.people[index][u'state']='in'
         ifchange=True
@@ -63,16 +64,13 @@ class user:
 
     def InitWithUid(self,uid):
         users=self.getusers()
-        u=users.find_one({u'uid':uid})
-        self.uid=uid
+        u=users.find_one({u'uid':str(uid)})
+        self.uid=str(uid)
         if u is None:
+            print "not in"
             self.hostlist=[]
             self.inlist=[]
             self.informations=[]
-            try:
-                self.get_from_cookie()
-            except:
-                print "first log"
             client=self.getclient(self.access_token,self.expires_in)
             userinfor=client.users.show.get(uid=int(self.uid))
             self.name=userinfor[u'name']
@@ -106,8 +104,8 @@ class user:
         client.set_access_token(self.access_token,self.expires_in)
         web.setcookie('access_token',self.access_token)
         web.setcookie('expires_in',self.expires_in)
-        self.uid=result['uid']
-        web.setcookie(u'uid',self.uid)
+        self.uid=str(result['uid'])
+        web.setcookie(u'uid',str(self.uid))
         self.InitWithUid(self.uid)
     def InitWithOthersUid(self,uid,name):
         users=self.getusers()
@@ -129,7 +127,7 @@ class user:
         elif uid is None:
             self.InitWithCode(code)
         else:
-            self.InitWithUid(uid)
+            self.InitWithUid(str(uid))
     
 
     def set_account(self,account):

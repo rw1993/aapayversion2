@@ -64,4 +64,8 @@ class set_account:
         u.set_account(account)
         userinfor=u.get_user_info_weibo()
         informations=u.informations
-        return render.user_index(userinfor,informations,u.account)
+        try:
+            activity_id=cookies[u'from_activity_id']
+            web.seeother("/activity?activity_id="+activity_id)
+        except:
+            return render.user_index(userinfor,informations,u.account)

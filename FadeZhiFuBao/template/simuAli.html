@@ -1,4 +1,4 @@
-$def with(money,account,activity_id)
+$def with(money,account,activity_id,uid)
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -42,6 +42,7 @@ $def with(money,account,activity_id)
             <button type="submit" class="btn btn-default">付款</button>
             <input class="hidden" value="$money" name="money" />
             <input class="hidden" value="$activity_id" name="activity_id"/>
+            <input class="hidden" value="$uid" name="uid" />
           </form>
         </div>
         <div class="col-md-6 column"> </div>

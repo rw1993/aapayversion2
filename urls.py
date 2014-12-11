@@ -1,3 +1,4 @@
+activity_controllers="controllers.activity_controller"
 urls=(
         "/","controllers.indexs.forau",
         "/redirecturl","controllers.indexs.redirect_uri",
@@ -6,6 +7,7 @@ urls=(
         "/user_index","controllers.indexs.show_user_index",
         "/design_activity","controllers.indexs.show_design_activity_page",
         "/set_a_activity","controllers.activity_controller.set_a_activity",
+        "/start_activity","controllers.activity_controller.start_activity",
         "/activity","controllers.activity_controller.show_a_activity",
         "/current_activity","controllers.activity_controller.show_current_activity",
         "/past_activity","controllers.activity_controller.show_past_activity",
@@ -18,5 +20,11 @@ urls=(
         "/redesign_activity","controllers.activity_controller.redesign_activity",
         "/redesign_2_step","controllers.activity_controller.redesign_2_step",
         "/redesign_and_set","controllers.activity_controller.redesign_and_set",
+        "/refund","controllers.activity_controller.begin_refund",
+        "/set_refund_money","controllers.activity_controller.set_refund_money",
+        "/refunded","controllers.activity_controller.refunded",
+        "/end_activity",activity_controllers+".end_activity",
+        "/fill_money",activity_controllers+".set_fill_money",
+        "/set_fill_money",activity_controllers+".begin_fill",
 
         )
