@@ -319,9 +319,11 @@ class set_a_activity:
         friends=hostuser.get_friends_pachong()
         invite_list=[]
         for friend in friends:
+            print "here"
             try:
                 test=webinput[str(friend[u'id'])]
                 invite_list.append(friend)
+                print friend[u'id']
             except:
                 continue
         activity_id=hostuser.set_a_activity(activity_name=webinput[u'ActivityName'],activity_money=webinput[u'ActivityMoney'],activity_time=webinput[u'ActivityTime'],activity_position=webinput[u'ActivityPosition'],activity_brief=webinput[u'ActivityBrief'],friends_in=invite_list)
