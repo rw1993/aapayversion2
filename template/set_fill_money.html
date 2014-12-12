@@ -35,7 +35,7 @@ $def with(activity)
             <div class="row clearfix">
               <div class="col-md-12 column">
                 <div class="row clearfix">
-                  <form role="form" action="/set_fill_money" method="POST">
+                  <form role="form" action="/set_fill_money" method="POST" ng-app="" ng-controller="validateCtrl" name="myForm" novalidate>
                     <input name="activity_id" value="$activity.activity_id" class="hidden" />
                   	<div class="col-md-3 column">
                     <br />
