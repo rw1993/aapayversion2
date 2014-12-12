@@ -2,7 +2,7 @@ import pymongo
 import web
 from models.user import user
 from models.activity import activity
-
+import time
 
 render=web.template.render("template")
 class begin_fill:
@@ -19,11 +19,11 @@ class begin_fill:
             index=a.people.index(people)
             a.people[index][u'state']="unpay"
             uid=people[u'uid']
-            money=webinput[str(uid)]
+            money=webinput["a"+str(uid)]
             a.people[index][u'money']=float(money)
             string+=" @"+people[u'screen_name']
         a.save()
-        u.send_information(activity_id=int(activity_id),string=string)
+        u.send_information(activity_id=int(a.weibo_id),string=string)
         web.seeother("/activity?activity_id="+activity_id)
 class set_fill_money:
     def GET(self):
@@ -54,7 +54,7 @@ class start_activity:
         string=u"\u6d3b\u52a8\u5f00\u59cb"
         for people in a.people:
             string+=" @"+people[u'screen_name']
-        u.send_information(activity_id=int(activity_id),string=string)
+        u.send_information(activity_id=int(a.weibo_id),string=string)
         web.seeother("/activity?activity_id="+activity_id)
 class refunded:
     def GET(self):
@@ -63,8 +63,9 @@ class refunded:
         cookies=web.cookies()
         uid=cookies[u'uid']
         u=user(uid=uid)
+        a=activity(activity_id=int(activity_id))
         string=u"\u6211\u5df2\u7ecf\u9000\u6b3e\uff0c\u8bf7\u67e5\u6536"
-        u.send_information(activity_id=int(activity_id),string=string)
+        u.send_information(activity_id=int(a.weibo_id),string=string)
         web.seeother("/activity?activity_id="+activity_id)
 class set_refund_money:
     def POST(self):
@@ -73,7 +74,7 @@ class set_refund_money:
         activity_id=webinput[u'activity_id']
         a=activity(activity_id=int(activity_id))
         for people in a.people:
-            money=webinput[str(people[u'uid'])]
+            money=webinput["a"+str(people[u'uid'])]
             summoney+=float(money)
         url="http://0.0.0.0:8000/multipay?summoney="+str(summoney)+"&activity_id="+activity_id
         web.seeother(url)
@@ -94,7 +95,7 @@ class refuse_activity:
         uid=cookies[u'uid']
         u=user(uid=uid)
         string=u'\u62b1\u6b49\uff0c\u6211\u65e0\u6cd5\u53c2\u52a0\u8fd9\u4e2a\u6d3b\u52a8'
-        u.send_information(activity_id=int(activity_id),string=string)
+        u.send_information(activity_id=int(a.weibo_id),string=string)
         url="/activity?activity_id="+activity_id
         web.seeother(url)
 class redesign_and_set:
@@ -111,7 +112,7 @@ class redesign_and_set:
         u=user(uid=uid)
         for friend in u.get_friends_pachong():
             try:
-                money=webinput[str(friend[u'id'])]
+                money=webinput["a"+str(friend[u'id'])]
                 p={}
                 p[u'state']="invited"
                 p[u'money']=float(money)
@@ -123,9 +124,9 @@ class redesign_and_set:
         a.people=people
         a.save()
         string=u"\u6d3b\u52a8\u5df2\u7ecf\u91cd\u65b0\u8bbe\u8ba1"
-        for p in people:
-            string+=" @"+people[u'screen_name']
-        u.send_information(activity_id=int(activity_id),string=string)
+        for p in a.people:
+            string+=" @"+p[u'screen_name']
+        u.send_information(activity_id=int(a.weibo_id),string=string)
         url="activity?activity_id="+activity_id
         web.seeother(url)
 
@@ -171,8 +172,10 @@ class payed:
         if index>=0:
             a.people[index][u'state']='payed'
             u=user(uid=uid)
-            string=u"\u6211\u4ee5\u4ed8\u6b3e\uff0c\u8bf7\u67e5\u6536"
-            u.send_information(activity_id=int(activity_id),string=string)
+            string="I am ready!"
+            strtime=time.strftime('%m-%d %H:%M',time.localtime(time.time()))
+            string+=str(strtime)
+            u.send_information(activity_id=int(a.weibo_id),string=string)
             ifchange=True
             for people in a.people:
                 if people[u'state']=='payed':
@@ -222,7 +225,7 @@ class begin_to_pay:
         string=u"\u6d3b\u52a8\u5f00\u59cb\u6536\u6b3e\u4e86"
         for p in a.people:
             string+=" @"+p[u'screen_name']
-        u.send_information(activity_id=int(activity_id),string=string)
+        u.send_information(activity_id=int(a.weibo_id),string=string)
         web.seeother("/activity?activity_id="+activity_id)
 
 class attend_activity:
@@ -233,8 +236,9 @@ class attend_activity:
         uid=cookies[u'uid']
         u=user(uid=uid)
         u.attend_activity(int(activity_id))
+        a=activity(activity_id=int(activity_id))
         string=u"\u6211\u53c2\u52a0\u4e86\u6d3b\u52a8"
-        u.send_information(activity_id=int(activity_id),string=string)
+        u.send_information(activity_id=int(a.weibo_id),string=string)
         web.seeother("/activity?activity_id="+activity_id)
 class show_current_activity:
     def GET(self):
@@ -283,7 +287,6 @@ class show_refused_activity:
             a=activity(activity_id=activity_id)
             if a.state=="refused":
                 refuse_in.append(a)
-                print a.activity_id
         return render.activity_list(refuse_in,refuse_host,3)
 
         
@@ -316,9 +319,11 @@ class set_a_activity:
         friends=hostuser.get_friends_pachong()
         invite_list=[]
         for friend in friends:
+            print "here"
             try:
                 test=webinput[str(friend[u'id'])]
                 invite_list.append(friend)
+                print friend[u'id']
             except:
                 continue
         activity_id=hostuser.set_a_activity(activity_name=webinput[u'ActivityName'],activity_money=webinput[u'ActivityMoney'],activity_time=webinput[u'ActivityTime'],activity_position=webinput[u'ActivityPosition'],activity_brief=webinput[u'ActivityBrief'],friends_in=invite_list)

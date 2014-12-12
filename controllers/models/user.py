@@ -28,6 +28,7 @@ class user:
     def set_a_activity(self,activity_name,activity_money,activity_time,activity_position,activity_brief,friends_in):
         self.get_from_cookie()
         client=self.getclient(self.access_token,self.expires_in)
+        self.get_from_cookie()
         hostinfor=self.get_user_info_weibo()
         newactivity=activity(activity_name,activity_money,activity_time,activity_position,activity_brief,friends_in,self.uid,hostinfor,client)
         self.hostlist.append(newactivity.activity_id)
@@ -93,7 +94,8 @@ class user:
     def send_information(self,activity_id,string):
         self.get_from_cookie()
         client=self.getclient(self.access_token,self.expires_in)
-        client.comments.create.post(id=int(activity_id),comment=string)
+        result=client.comments.create.post(id=int(activity_id),comment=string)
+        print result
 
 
 
@@ -148,10 +150,6 @@ class user:
         self.access_token=cookies['access_token']
         self.expires_in=cookies['expires_in']
     def get_user_info_weibo(self):
-        try:
-            self.get_from_cookie()
-        except:
-            print "access_token unset"
         client=self.getclient(access_token=self.access_token,expires_in=self.expires_in)
         userinfor=client.users.show.get(uid=int(self.uid))
         return userinfor

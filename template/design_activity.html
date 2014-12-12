@@ -105,10 +105,8 @@ $def with(friends)
                         <ul>
                           $for friend in friends:
                           <li>
-                            <input type='checkbox' name='$$friends.index(name)' value= "$$friend['uid']">
+                            <input type='checkbox' value='1' name="$friend['id']">
                             $friend[u'name']
-                            <input  class="hidden" name='name' value="$$friend[u'name']">
-                            <input  class="hidden" name='account' value="$$friend[u'account']">
                           </li>
                         </ul>
                       </div>

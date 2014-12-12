@@ -1,5 +1,6 @@
 import web
 from models.user import user
+from models.activity import activity
 render=web.template.render("template")
 class forau:
     def GET(self):
@@ -21,8 +22,14 @@ class redirect_uri:
             try:
                 cookies=web.cookies()
                 weibo_id=cookies[u'from_activity_id']
-                #print weibo_id
-                web.seeother("activity?activity_id="+weibo_id)
+                a=activity(activity_id=int(weibo_id))
+                for p in a.people:
+                    if str(u.uid)==str(p[u'uid']):
+                        web.seeother("activity?activity_id="+weibo_id)
+                userinfor=u.get_user_info_weibo()
+                informations=u.informations
+                return render.user_index(userinfor,informations,u.account)
+
             except:
                 userinfor=u.get_user_info_weibo()
                 informations=u.informations
@@ -66,6 +73,10 @@ class set_account:
         informations=u.informations
         try:
             activity_id=cookies[u'from_activity_id']
-            web.seeother("/activity?activity_id="+activity_id)
+            a=activity(activity_id=int(activity_id))
+            for p in a.people:
+                if str(p[u'uid'])==str(uid):
+                        web.seeother("/activity?activity_id="+activity_id)
+            return render.user_index(userinfor,informations,u.account)
         except:
             return render.user_index(userinfor,informations,u.account)
