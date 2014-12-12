@@ -8,6 +8,12 @@ $def with(activity,peopleIN)
 		  <script src="http://apps.bdimg.com/libs/jquery/2.0.0/jquery.min.js"></script>
 		  <script src="http://apps.bdimg.com/libs/bootstrap/3.0.3/css/bootstrap-theme.min.css"></script>
 		  <script src="http://apps.bdimg.com/libs/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+          <script src="http://apps.bdimg.com/libs/angular.js/1.2.15/angular.min.js"></script>
+
+			<script>
+            function validateCtrl($$scope) {
+            }
+            </script>
 		  </head>
 
 		  <body>
@@ -29,21 +35,41 @@ $def with(activity,peopleIN)
             <div class="row clearfix">
               <div class="col-md-12 column">
                 <div class="row clearfix">
-                  <form role="form" action="/redesign_and_set" method="POST">
+                <form role="form" action="/redesign_and_set" method="POST" ng-app="" ng-controller="validateCtrl" name="myForm" novalidate>
                     <input name="activity_id" value="$activity.activity_id" class="hidden" />
                   	<div class="col-md-3 column">
                     <br />
                     </div>
                     <div class="col-md-6 column">
                       <h3> 请更改活动的详细信息</h3>
-                      <div class="form-group">
-                        <label for="activity_time">活动时间</label>
-                        <input type="" class="form-control" name="activity_time" value="$activity.activity_time" />
+                      
+                      <div class="form-group has-feedback" 
+                      ng-class="{ 'has-error' : myForm.activity_time.$$invalid && myForm.activity_time.$$dirty }">
+                        <label for="activity_time">*活动时间</label>
+                        <input id="activity_time" type="text" class="col-sm-5 form-control" name="activity_time" 
+                        ng-model="activity_time"  value="$activity.activity_time" ng-pattern="/(\d{2}|\d{4})(?:\-)?([0]{1}\d{1}|[1]{1}[0-2]{1})(?:\-)?([0-2]{1}\d{1}|[3]{1}[0-1]{1})(?:\s)?([0-1]{1}\d{1}|[2]{1}[0-3]{1})(?::)?([0-5]{1}\d{1})(?::)?([0-5]{1}\d{1})/" required>
+                        <span class="float glyphicon glyphicon-ok form-control-feedback" 
+                        ng-show="myForm.activity_time.$$dirty && myForm.activity_time.$$valid" ></span>
+                        <span style="color:red" ng-show="myForm.activity_time.$$invalid && myForm.activity_time.$$dirty">
+                        <span ng-show="myForm.activity_time.$$error.required||myForm.activity_time.$$pristine">请输入活动时间</span>
+                        <span ng-show="myForm.activity_time.$$error.pattern">输入错误，请输入YYYY-MM-DD HH:MM:SS格式的时间</span>
+                        </span>
                       </div>
-                      <div class="form-group">
-                        <label for="activity_position">活动地点</label>
-                        <input type="" class="form-control" name="activity_position" value="$activity.activity_position"/>
-                      </div>
+                      
+                      <div class="form-group has-feedback" 
+                      ng-class="{ 'has-error' : myForm.activity_position.$$invalid && myForm.activity_position.$$dirty }">
+                        <label for="activity_position">*活动地点</label>
+                        <input id="activity_position" type="text" class="col-sm-5 form-control" 
+                        name="activity_position" value="$activity.activity_position" ng-model="activity_position" required>
+                        <span class="float glyphicon glyphicon-ok form-control-feedback" 
+                        ng-show="myForm.activity_position.$$dirty && myForm.activity_position.$$valid" ></span>
+                        <span style="color:red" ng-show="myForm.activity_position.$$invalid && myForm.activity_position.$$dirty">
+                        <span ng-show="myForm.activity_position.$$error.required||myForm.activity_position.$$pristine">请输入活动地点</span>
+                        </span>
+                      </div> 
+                      
+                      
+                      
                       <div class="form-group">
                         <label for="activity_brief">活动简介</label>
                         <textarea class="form-control" name="activity_brief" rows="3">$activity.activity_brief</textarea>
@@ -52,16 +78,26 @@ $def with(activity,peopleIN)
                         <label>活动金额分配方案</label>
                         $for p in peopleIN:
                             <span>
-                            <div class="form-group">
+                                     
+                            <div class="form-group has-feedback" 
+                             ng-class="{ 'has-error' : myForm.$p['id'].$$invalid && myForm.$p['id'].$$dirty }">
                             <label for="$p['id']" class="col-sm-4 control-label">$p['screen_name']</label>
-			    <div class="col-sm-4">
-			    <input type="" class="form-control" name="$p['id']" />
+							<div class="col-sm-4">
+                            <input id="$p['id']" type="text" class="col-sm-5 form-control" 
+                            name="$p['id']" ng-model="$p['id']"   ng-pattern="/^\d+(\.\d+)?$$/" required>
                             </div>
-                            </div>
+                            <span class="float glyphicon glyphicon-ok form-control-feedback" ng-show="myForm.$p['id'].$$dirty && myForm.$p['id'].$$valid" ></span>
+                            <span style="color:red" ng-show="myForm.$p['id'].$$invalid && myForm.$p['id'].$$dirty">
+                            <span ng-show="myForm.$p['id'].$$error.required||myForm.$p['id'].$$pristine">请输入金额</span>
+                            <span ng-show="myForm.$p['id'].$$error.pattern">请输入正确的金额</span>
                             </span>
-			    <br />
+                            </div>
+                            
+                            
+                            </span>
+			                <br />
                       </div>
-                      <br /><button type="submit" class="btn btn-default">重新发起活动</button>
+                      <br /><button type="submit" ng-disabled="myForm.$$invalid" class="btn btn-default">重新发起活动</button>
                     </div>
                     <div class="col-md-3 column">
                     </div>

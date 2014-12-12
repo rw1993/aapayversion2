@@ -8,6 +8,10 @@ $def with(friends)
 		  <script src="http://apps.bdimg.com/libs/jquery/2.0.0/jquery.min.js"></script>
 		  <script src="http://apps.bdimg.com/libs/bootstrap/3.0.3/css/bootstrap-theme.min.css"></script>
 		  <script src="http://apps.bdimg.com/libs/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+	          <script>
+		  function validateCtrl($scope) {
+		  }
+		  </script>
 		  </head>
 
 		  <body>
@@ -30,12 +34,24 @@ $def with(friends)
             <div class="row clearfix">
               <div class="col-md-12 column">
                 <div class="row clearfix">
-                  <form role="form" action="/set_a_activity" method="POST">
-                    <div class="col-md-5 column">
-                      <div class="form-group">
+		<div class="col-md-5 column">
+                 <form role="form" action="/sendBeginWeibo" method="POST" ng-app="" ng-controller="validateCtrl" name="myForm" novalidate>
+                    
+
+
+                      <div class="form-group has-feedback" 
+                      ng-class="{ 'has-error' : myForm.ActivityName.$invalid && myForm.ActivityName.$dirty }">
                         <label for="ActivityName">活动名称</label>
-                        <input type="" class="form-control" name="ActivityName" />
-                      </div>
+                        <input id="ActivityName" type="text" class="col-sm-5 form-control" 
+                        name="ActivityName" ng-model="ActivityName" required>
+                        <span class="float glyphicon glyphicon-ok form-control-feedback" 
+                        ng-show="myForm.ActivityName.$dirty && myForm.ActivityName.$valid" ></span>
+                        <span style="color:red" ng-show="myForm.ActivityName.$invalid && myForm.ActivityName.$dirty">
+                        <span ng-show="myForm.ActivityName.$error.required||myForm.ActivityName.$pristine">请输入活动名称</span>
+                        </span>
+                      </div>        
+
+
                       <div class="form-group">
                         <label for="ActivityMoney">活动总金额</label>
                         <br /><small>本系统默认AA平摊方案，如需调整，请在发起活动后在重定义页面进行调整</small>
@@ -60,7 +76,7 @@ $def with(friends)
                     </div>
                     <div class="col-md-6 column">
                       <div STYLE='width:200;height:200;overflow-y:scroll;border:1px solid black'>
-                        <ul>
+                        <ul class="list-unstyled">
                           $for friend in friends:
                           <li>
                             <input type='checkbox' name='$friend[u'id']' value=
