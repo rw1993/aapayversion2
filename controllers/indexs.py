@@ -53,6 +53,7 @@ class show_user_index():
         uid=cookies[u'uid']
         u=user(uid=uid)
         informations=u.informations
+        u.get_from_cookie()
         userinfor=u.get_user_info_weibo()
         return render.user_index(userinfor,informations,u.account)
 
@@ -69,6 +70,7 @@ class set_account:
         uid=cookies[u'uid']
         u=user(uid=uid)
         u.set_account(account)
+        u.get_from_cookie()
         userinfor=u.get_user_info_weibo()
         informations=u.informations
         try:
