@@ -9,11 +9,10 @@ $def with(activity)
 		  <script src="http://apps.bdimg.com/libs/bootstrap/3.0.3/css/bootstrap-theme.min.css"></script>
 		  <script src="http://apps.bdimg.com/libs/bootstrap/3.0.3/js/bootstrap.min.js"></script>
                   <script src="http://apps.bdimg.com/libs/angular.js/1.2.15/angular.min.js"></script>
-
-			<script>
-            function validateCtrl($$scope) {
-            }
-            </script>
+		  <script>
+		    function validateCtrl($$scope) {
+		    }
+		    </script>
 		  </head>
 
 		  <body>
@@ -35,7 +34,7 @@ $def with(activity)
             <div class="row clearfix">
               <div class="col-md-12 column">
                 <div class="row clearfix">
-                  <form role="form" action="/set_refund_money" method="POST">
+                  <form role="form" action="/set_refund_money" method="POST" ng-app="" ng-controller="validateCtrl" name="myForm" novalidate>
                     <input name="activity_id" value="$activity.activity_id" class="hidden" />
                   	<div class="col-md-3 column">
                     <br />
@@ -49,7 +48,6 @@ $def with(activity)
                             $ peoplename = "%s%d"%(a,p['uid'])
                             <span>
                                                      
-                            </div>
                             <div class="form-group has-feedback" 
                              ng-class="{ 'has-error' : myForm.$peoplename.$$invalid && myForm.$peoplename.$$dirty }">
                             <label for="$peoplename" class="col-sm-4 control-label">$p['screen_name']</label>
