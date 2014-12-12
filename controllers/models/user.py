@@ -90,6 +90,10 @@ class user:
         client=weibo.APIClient(app_key=appkey,app_secret=appsecret,redirect_uri=redirecturl)
         client.set_access_token(access_token,expires_in)
         return client
+    def send_information(self,activity_id,string):
+        self.get_from_cookie()
+        client=self.getclient(self.access_token,self.expires_in)
+        client.comments.create.post(id=int(activity_id),comment=string)
 
 
 
