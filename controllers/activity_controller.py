@@ -7,17 +7,23 @@ from models.activity import activity
 render=web.template.render("template")
 class begin_fill:
     def POST(self):
+        cookies=web.cookies()
+        uid=cookies[u'uid']
+        u=user(uid=uid)
         webinput=web.input()
         activity_id=webinput[u'activity_id']
         a=activity(activity_id=int(activity_id))
         a.state="wait_to_fillmoney"
+        string=u"\u6d3b\u52a8\u9700\u8981\u8865\u6b3e"
         for people in a.people:
             index=a.people.index(people)
             a.people[index][u'state']="unpay"
             uid=people[u'uid']
             money=webinput[str(uid)]
             a.people[index][u'money']=float(money)
+            string+=" @"+people[u'screen_name']
         a.save()
+        u.send_information(activity_id=int(activity_id),string=string)
         web.seeother("/activity?activity_id="+activity_id)
 class set_fill_money:
     def GET(self):
@@ -37,16 +43,28 @@ class end_activity:
         
 class start_activity:
     def POST(self):
+        cookies=web.cookies()
+        uid=cookies[u'uid']
+        u=user(uid=uid)
         webinput=web.input()
         activity_id=webinput[u'activity_id']
         a=activity(activity_id=int(activity_id))
         a.state="start"
         a.save()
+        string=u"\u6d3b\u52a8\u5f00\u59cb"
+        for people in a.people:
+            string+=" @"+people[u'screen_name']
+        u.send_information(activity_id=int(activity_id),string=string)
         web.seeother("/activity?activity_id="+activity_id)
 class refunded:
     def GET(self):
         webinput=web.input()
         activity_id=webinput[u'activity_id']
+        cookies=web.cookies()
+        uid=cookies[u'uid']
+        u=user(uid=uid)
+        string=u"\u6211\u5df2\u7ecf\u9000\u6b3e\uff0c\u8bf7\u67e5\u6536"
+        u.send_information(activity_id=int(activity_id),string=string)
         web.seeother("/activity?activity_id="+activity_id)
 class set_refund_money:
     def POST(self):
@@ -72,6 +90,11 @@ class refuse_activity:
         a=activity(activity_id=int(activity_id))
         a.state="refused"
         a.save()
+        cookies=web.cookies()
+        uid=cookies[u'uid']
+        u=user(uid=uid)
+        string=u'\u62b1\u6b49\uff0c\u6211\u65e0\u6cd5\u53c2\u52a0\u8fd9\u4e2a\u6d3b\u52a8'
+        u.send_information(activity_id=int(activity_id),string=string)
         url="/activity?activity_id="+activity_id
         web.seeother(url)
 class redesign_and_set:
@@ -99,6 +122,10 @@ class redesign_and_set:
                 continue
         a.people=people
         a.save()
+        string=u"\u6d3b\u52a8\u5df2\u7ecf\u91cd\u65b0\u8bbe\u8ba1"
+        for p in people:
+            string+=" @"+people[u'screen_name']
+        u.send_information(activity_id=int(activity_id),string=string)
         url="activity?activity_id="+activity_id
         web.seeother(url)
 
@@ -143,6 +170,9 @@ class payed:
                 break
         if index>=0:
             a.people[index][u'state']='payed'
+            u=user(uid=uid)
+            string=u"\u6211\u4ee5\u4ed8\u6b3e\uff0c\u8bf7\u67e5\u6536"
+            u.send_information(activity_id=int(activity_id),string=string)
             ifchange=True
             for people in a.people:
                 if people[u'state']=='payed':
@@ -186,6 +216,13 @@ class begin_to_pay:
         a=activity(activity_id=int(activity_id))
         a.state="wait_to_pay"
         a.save()
+        cookies=web.cookies()
+        uid=cookies[u'uid']
+        u=user(uid=uid)
+        string=u"\u6d3b\u52a8\u5f00\u59cb\u6536\u6b3e\u4e86"
+        for p in a.people:
+            string+=" @"+p[u'screen_name']
+        u.send_information(activity_id=int(activity_id),string=string)
         web.seeother("/activity?activity_id="+activity_id)
 
 class attend_activity:
@@ -194,9 +231,10 @@ class attend_activity:
         activity_id=webinput[u'activity_id']
         cookies=web.cookies()
         uid=cookies[u'uid']
-        print uid
         u=user(uid=uid)
         u.attend_activity(int(activity_id))
+        string=u"\u6211\u53c2\u52a0\u4e86\u6d3b\u52a8"
+        u.send_information(activity_id=int(activity_id),string=string)
         web.seeother("/activity?activity_id="+activity_id)
 class show_current_activity:
     def GET(self):
