@@ -8,12 +8,6 @@ $def with(activity)
 		  <script src="http://apps.bdimg.com/libs/jquery/2.0.0/jquery.min.js"></script>
 		  <script src="http://apps.bdimg.com/libs/bootstrap/3.0.3/css/bootstrap-theme.min.css"></script>
 		  <script src="http://apps.bdimg.com/libs/bootstrap/3.0.3/js/bootstrap.min.js"></script>
-                  <script src="http://apps.bdimg.com/libs/angular.js/1.2.15/angular.min.js"></script>
-
-			<script>
-            function validateCtrl($$scope) {
-            }
-            </script>
 		  </head>
 
 		  <body>

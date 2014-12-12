@@ -14,6 +14,7 @@ class activity:
         self.people=a[u'people']
         self.host_uid=a[u'host_uid']
         self.host_name=a[u'host_name']
+        self.weibo_id=a[u'weibo_id']
         print self.activity_id
     def set_activity_id(self):
         activities=self.get_activities()
@@ -33,7 +34,8 @@ class activity:
         text=u"I invite you all to a activity!To see the details,please click http://0.0.0.0:8080?from_activity_id="+str(self.activity_id)+"  "
         for people in self.people:
             text+="@"+people[u'screen_name']+" "
-        client.statuses.update.post(status=text)
+        result=client.statuses.update.post(status=text)
+        self.weibo_id=result[u'id']
 
 
     def save(self):
@@ -50,6 +52,7 @@ class activity:
         a[u'state']=self.state
         a[u'host_name']=self.host_name
         a[u'host_uid']=self.host_uid
+        a[u'weibo_id']=self.weibo_id
         activities.insert(a)
 
 

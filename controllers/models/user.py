@@ -93,7 +93,8 @@ class user:
     def send_information(self,activity_id,string):
         self.get_from_cookie()
         client=self.getclient(self.access_token,self.expires_in)
-        client.comments.create.post(id=int(activity_id),comment=string)
+        result=client.comments.create.post(id=int(activity_id),comment=string)
+        print result
 
 
 
