@@ -38,27 +38,29 @@ $def with(activity)
                       <h3> 请填写退款分配方案并确认</h3>
                       <div class="form-group">
                         <label>退款分配方案</label>
+                        $ a = 'a'
                         $for p in activity.people:
+                            $ peoplename = "%s%d"%(a,p['uid'])
                             <span>
                                                      
                             </div>
                             <div class="form-group has-feedback" 
-                             ng-class="{ 'has-error' : myForm.$p[u'uid'].$$invalid && myForm.$p[u'uid'].$$dirty }">
-                            <label for="$p['id']" class="col-sm-4 control-label">$p['screen_name']</label>
+                             ng-class="{ 'has-error' : myForm.$peoplename.$$invalid && myForm.$peoplename.$$dirty }">
+                            <label for="$peoplename" class="col-sm-4 control-label">$p['screen_name']</label>
 							<div class="col-sm-4">
-                            <input id="$p[u'uid']" type="text" class="col-sm-5 form-control" 
-                            name="$p[u'uid']" ng-model="$p[u'uid']"   ng-pattern="/^\d+(\.\d+)?$$/" required>
+                            <input id="$peoplename" type="text" class="col-sm-5 form-control" 
+                            name="$peoplename" ng-model="$peoplename"   ng-pattern="/^\d+(\.\d+)?$$/" required>
                             </div>
-                            <span class="float glyphicon glyphicon-ok form-control-feedback" ng-show="myForm.$p[u'uid'].$$dirty && myForm.$p[u'uid'].$$valid" ></span>
-                            <span style="color:red" ng-show="myForm.$p[u'uid'].$$invalid && myForm.$p[u'uid'].$$dirty">
-                            <span ng-show="myForm.$p[u'uid'].$$error.required||myForm.$p[u'uid'].$$pristine">请输入金额</span>
-                            <span ng-show="myForm.$p[u'uid'].$$error.pattern">请输入正确的金额</span>
+                            <span class="float glyphicon glyphicon-ok form-control-feedback" ng-show="myForm.$peoplename.$$dirty && myForm.$peoplename.$$valid" ></span>
+                            <span style="color:red" ng-show="myForm.$peoplename.$$invalid && myForm.$peoplename.$$dirty">
+                            <span ng-show="myForm.$peoplename.$$error.required||myForm.$peoplename.$$pristine">请输入金额</span>
+                            <span ng-show="myForm.$peoplename.$$error.pattern">请输入正确的金额</span>
                             </span>
                             </div>
                             
                             
                             </span>
-			   				<br />
+			    <br />
                       </div>
                       <br />
                       <button type="submit" ng-disabled="myForm.$$invalid" class="btn btn-default">确认退款</button>
