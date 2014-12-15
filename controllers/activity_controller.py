@@ -264,12 +264,12 @@ class show_past_activity:
         past_host=[]
         for activity_id in u.hostlist:
             a=activity(activity_id=activity_id)
-            if a.state=="end" or a.state=="wait_to_fill" or a.state=="fillmoney_end":
+            if a.state=="end" or a.state=="wait_to_fillmoney" or a.state=="fillmoney_end":
                 past_host.append(a)
         past_in=[]
         for activity_id in u.inlist:
             a=activity(activity_id=activity_id)
-            if a.state=="end" or a.state=="wait_to_fill" or a.state=="fillmoney_end":
+            if a.state=="end" or a.state=="wait_to_fillmoney" or a.state=="fillmoney_end":
                 past_in.append(a)
         return render.activity_list(past_in,past_host,2)
 class show_refused_activity:
